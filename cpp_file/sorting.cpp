@@ -3,7 +3,7 @@
  *
  *       Filename:  sorting.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  26/03/2022 22:37:44
@@ -15,20 +15,39 @@
  *
  * =====================================================================================
  */
-void swap(int *a, int *b){
-  int *temp = a;
-  a = b;
-  b = temp;
-}
-void selectionSort(int arr[], int n){
+#include <iostream>
+
+void selectionSort(int arr[], int n)
+{
   int i, j;
-  for(i = 0; i < n - 1; i++){
+  for (i = 0; i < n - 1; i++)
+  {
     int jMin = i;
-    for (j = i+1; j < n; j++){
-      if(arr[j] < a[jMin])
+    for (j = i + 1; j < n; j++)
+    {
+      if (arr[j] < arr[jMin])
         jMin = j;
     }
     if (jMin != i)
-      swap(a[i], a[jMin])
+      std::swap(arr[i], arr[jMin]);
   }
+}
+
+void printArray(int arr[], int n)
+{
+  for (int i = 0; i < n; i++)
+    std::cout << arr[i] << ' ';
+
+  printf("\n");
+}
+
+int main()
+{
+  int arr[] = {23, 45, 1, 3, 2, 5, 4, 6, 7, 8};
+
+  int n{10};
+
+  selectionSort(arr, n);
+
+  printArray(arr, n);
 }
