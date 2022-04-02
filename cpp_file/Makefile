@@ -1,5 +1,5 @@
 all:
-	g++ sorting.cpp -o sorso
+	g++ test.cpp sorting.cpp utilities.cpp -o sorso
 	g++ karatsubaMul.cpp -o kara
 
 clean:
