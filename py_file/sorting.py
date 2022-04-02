@@ -1,7 +1,10 @@
+from typing import List
+
+
 class Sort:
     rec_n = 0
 
-    def merge_sort(self, arr):
+    def merge_sort(self, arr: List):
         arr_len = len(arr)
         if arr_len < 2:
             return arr
@@ -20,11 +23,9 @@ class Sort:
 
         arr_len_div_by_3 = arr_len // 3
 
-        a1 = self.merge_sort_3_partition(arr[: arr_len_div_by_3])
-        a2 = self.merge_sort_3_partition(
-            arr[arr_len_div_by_3: 2 * arr_len_div_by_3])
-        a3 = self.merge_sort_3_partition(
-            arr[2 * arr_len_div_by_3:])
+        a1 = self.merge_sort_3_partition(arr[:arr_len_div_by_3])
+        a2 = self.merge_sort_3_partition(arr[arr_len_div_by_3 : 2 * arr_len_div_by_3])
+        a3 = self.merge_sort_3_partition(arr[2 * arr_len_div_by_3 :])
 
         print(a1, a2, a3)
         return self.merge_3_input(a1, a2, a3)
@@ -33,7 +34,7 @@ class Sort:
         l_n = len(l_arr)
         r_n = len(r_arr)
         n = l_n + r_n
-        result = [0]*n
+        result = [0] * n
 
         i = j = 0
         for k in range(n):
