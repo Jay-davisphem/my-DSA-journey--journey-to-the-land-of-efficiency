@@ -17,14 +17,21 @@
  */
 #include "sorting.h"
 #include "utilities.h"
-
+#include <iomanip>
 int main()
 {
-  int arr[] = {23, 45, 1, 3, 2, 5, 4, 6, 7, 8};
+  std::cout << std::boolalpha;
 
-  int n{10};
+  float zero{0.0};
+  double five{5.0};
+  std::cout << five / zero << '\n';
+  std::cout << -five / zero << '\n';
+  std::cout << zero / zero << '\n';
 
-  bubbleSort(arr, n);
+  int arr[] = {23, 45, 1, 3, 2, 5, 4, 6, 7, 8, 45, 2, 2, 1, 4, 6, 4, 7};
+  int n{18};
+
+  insertionSort(arr, n);
 
   printArray(arr, n);
 }
