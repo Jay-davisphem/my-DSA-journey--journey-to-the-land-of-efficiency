@@ -12,4 +12,9 @@ def count_invertions(arr: List[int]) -> int:
     return n_inv
 
 
+def count_split(arr):
+    """count split of recursive count_inversions"""
+    pass
+
+
 print(count_invertions([1, 3, 5, 2, 4, 6]))
