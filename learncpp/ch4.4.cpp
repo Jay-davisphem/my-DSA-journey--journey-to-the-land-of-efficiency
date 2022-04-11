@@ -19,7 +19,7 @@ void printResult(int h)
     {
         float g_h{g * (x_seconds * x_seconds) / 2};
         if (g_h >= h)
-            std::cout << "At " << x_seconds << "s econds, the ball is on the ground\n";
+            std::cout << "At " << x_seconds << "seconds, the ball is on the ground\n";
         else
             std::cout << "At " << x_seconds << " seconds, the ball is at height: " << h - g_h << " meters\n";
         ++x_seconds;
