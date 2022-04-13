@@ -43,7 +43,7 @@ def mat_mul_r(X, Y):
     """
     n = len(X)
     if n == 1:
-        return X[0][0] * Y[0][0]
+        return [X[0][0] * Y[0][0]]
     else:
         A, B, C, D = div_to_four(X)
         E, F, G, H = div_to_four(Y)
@@ -60,6 +60,22 @@ def mat_mul_r(X, Y):
         return [[AE + BG, AF + BH], [CE + DG, CF + DH]]
 
 
+def add(A, B):
+    C = [[0 for _ in range(len(A))] for __ in range(len(A[0]))]
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            C[i][j] = A[i][j] + B[i][j]
+    return C
+
+
+def sub(A, B):
+    C = [[0 for _ in range(len(A))] for __ in range(len(A[0]))]
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            C[i][j] = A[i][j] - B[i][j]
+    return C
+
+
 def strassen_mul(X, Y):
     """
     Asymptotic running time = O(n^(log3))(sub-cubic running time)
@@ -68,22 +84,26 @@ def strassen_mul(X, Y):
     """
     n = len(X)
     if n == 1:
-        return X[0][0] * Y[0][0]
+        return [[X[0][0] * Y[0][0]]]
     else:
         A, B, C, D = div_to_four(X)
         E, F, G, H = div_to_four(Y)
 
-        P1 = strassen_mul(A, (F - H))
-        P2 = strassen_mul((A + B), H)
-        P3 = strassen_mul((C + D), E)
-        P4 = strassen_mul(D, (G - E))
-        P5 = strassen_mul((A + D), (E + H))
-        P6 = strassen_mul((B - D), (G + H))
-        P7 = strassen_mul((A - C), (E + F))
+        P1 = strassen_mul(A, sub(F, H))
+        P2 = strassen_mul(add(A, B), H)
+        P3 = strassen_mul(add(C, D), E)
+        P4 = strassen_mul(D, sub(G, E))
+        P5 = strassen_mul(add(A, D), add(E, H))
+        P6 = strassen_mul(sub(B, D), add(G, H))
+        P7 = strassen_mul(sub(A, C), add(E, F))
 
-        return [[P5 + P4 - P2 + P6, P1 + P2], [P3 + P4, P1 + P5 - P3 - P7]]
+        return [
+            [add(sub(add(P5, P4), P2), P6), add(P1, P2)],
+            [add(P3, P4), sub(sub(add(P1, P5), P3), P7)],
+        ]
 
 
+# print(add([[2, 4], [3, 5]], [[2, 5], [2, 3]]), "akjfkkaj")
 pprint(
     strassen_mul(
         # [],
