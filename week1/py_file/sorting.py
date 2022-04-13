@@ -58,10 +58,12 @@ class Sort:
         return self.merge(self.merge(a, b), c)
 
 
-arr = list(map(int, input().split()))
-a = Sort().merge_sort(arr)
-print()
-# [1, 3, 5, 8, 9], [0, 2, 4, 6, 7], [1, 9])
-b = Sort().merge_sort_3_partition(arr)
-print(b)
-print(a)
+if __name__ == "__main__":
+
+    arr = list(map(int, input().split()))
+    print()
+    # [1, 3, 5, 8, 9], [0, 2, 4, 6, 7], [1, 9])
+    a = Sort().merge_sort(arr)
+    # b = Sort().merge_sort_3_partition(arr)
+    # print(b)
+    print(a)
