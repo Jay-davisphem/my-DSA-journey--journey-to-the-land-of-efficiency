@@ -1,3 +1,4 @@
+from ctypes.wintypes import LPSC_HANDLE
 from imp import source_from_cache
 from typing import List, Tuple
 
@@ -14,8 +15,24 @@ def closest_pair_1d(x: List):
     return x1, x2
 
 
+def dist_sq(p1, p2):
+    return (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
+
+
+def min_base(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
+    if len(Px) < 2:
+        return None
+    elif len(Px) == 2:
+        return Px
+    elif len(Px) == 3:
+        p1, p2, p3 = Px[0], Px[1], Px[2]
+
+
 def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
-    ...
+    if len(Px) <= 3:
+        return min_base(Px, Py)
+    else:
+        ...
 
 
 if __name__ == "__main__":
