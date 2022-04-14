@@ -34,7 +34,7 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
         return min(new_p, key=lambda P: P[-1])[0]
 
 
-def best_of_pairs(P: Tuple[Tuple[Tuple[int.int]]]):
+def best_of_pairs(P: Tuple[Tuple[Tuple[int, int]]]):
     fin: List[Tuple[Tuple[int, int], int]] = [
         (p, dist_sq(*p)) for p in P if p[0] != None
     ]
@@ -61,7 +61,7 @@ def closest_split_pair(
     best = delta
     best_pair = (None, None)
     for i in range(l - 1):
-        for j in range(min(7, l - 1)):
+        for j in range(min(7, l - i)):
             if dist_sq(Sy[i], Sy[i + j]) < best:
                 best = dist_sq(Sy[i], Sy[i + j])
                 best_pair = Sy[i], Sy[i + j]
