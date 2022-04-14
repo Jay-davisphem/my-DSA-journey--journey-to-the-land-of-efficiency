@@ -35,12 +35,18 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
 
 
 def best_of_pairs(P: Tuple[Tuple[Tuple[int]]]):
-    fin = [(p, dist_sq(*p)) for p in P]
+    fin = [(p, dist_sq(*p)) for p in P if p[0] != None]
     return min(fin, key=lambda p: p[-1])
 
 
-def filter_pairs(P: List[Tuple[int]]) -> List[Tuple[int]]:
-    return [(0, 1), (2, 3)]
+def filter_pairs(Py: List[Tuple[int]], x: int, delta: int):
+    l_b = x - delta
+    u_b = x + delta
+    new_Py: List[Tuple[int]] = []
+    for i, j in Py:
+        if l_b <= i <= u_b:
+            new_Py.append((i, j))
+    return new_Py
 
 
 def closest_split_pair(
@@ -48,9 +54,16 @@ def closest_split_pair(
 ) -> Tuple[Tuple[int]]:
     n = len(Px)
     x = Px[n // 2][0]
-    Sy = filter_pairs(Py)
-
-    return ((0, 1), (2, 3))
+    Sy = filter_pairs(Py, x, delta)
+    l = len(Sy)
+    best = delta
+    best_pair = (None, None)
+    for i in range(l - 1):
+        for j in range(min(7, l - 1)):
+            if dist_sq(Sy[i], Sy[i + j]) < best:
+                best = dist_sq(Sy[i], Sy[i + j])
+                best_pair = Sy[i], Sy[i + j]
+    return best_pair
 
 
 def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
@@ -70,6 +83,12 @@ def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
 
         s1, s2 = closest_split_pair(Px, Py, delta)
         return best_of_pairs(((l1, l2), (r1, r2), (s1, s2)))[0]
+
+
+def closest_pair_2d_sorted(P: List[Tuple]):
+    Px = sorted(P, key=lambda p: p[0])
+    Py = sorted(P, key=lambda p: p[1])
+    return closest_pair_2d(Px, Py)
 
 
 if __name__ == "__main__":
