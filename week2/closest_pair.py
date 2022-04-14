@@ -23,6 +23,7 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
     if len(Px) < 2:
         return None
     elif len(Px) == 2:
+        print(Px, "youlosj")
         return Px
     elif len(Px) == 3:
         p1, p2, p3 = Px[0], Px[1], Px[2]
@@ -31,13 +32,13 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
             ((p1, p3), dist_sq(p1, p3)),
             ((p2, p3), dist_sq(p2, p3)),
         ]
+        print(new_p)
         return min(new_p, key=lambda P: P[-1])[0]
 
 
 def best_of_pairs(P: Tuple[Tuple[Tuple[int, int]]]):
-    fin: List[Tuple[Tuple[int, int], int]] = [
-        (p, dist_sq(*p)) for p in P if p[0] != None
-    ]
+    fin: List[Tuple[Tuple[int, int], int]] = [(p, dist_sq(*p)) for p in P if p[0]]
+    print(fin)
     return min(fin, key=lambda p: p[-1])
 
 
@@ -69,14 +70,17 @@ def closest_split_pair(
 
 
 def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int, int]]:
+    print(Px)
     if len(Px) <= 3:
         return min_base(Px)
     else:
         n_hf = len(Px) // 2
         Lx = Px[:n_hf]
-        Ly = Py[:n_hf]
+        Ly = []  # Py[:n_hf]
         Rx = Px[n_hf:]
-        Ry = Py[n_hf:]
+        Ry = []  # Py[n_hf:]
+        for i, j in Py:
+            ...
 
         l1, l2 = closest_pair_2d(Lx, Ly)
         r1, r2 = closest_pair_2d(Rx, Ry)
@@ -96,7 +100,12 @@ def closest_pair_2d_sorted(P: List[Tuple[int, int]]):
 if __name__ == "__main__":
     from random import randint as r, seed
 
-    seed(0)
-    P = [(r(1, 100), r(1, 100)) for i in range(100)]
+    seed(2)
+    P = [(r(1, 100), r(1, 100)) for i in range(4)]
     print(closest_pair_1d([1, 9, 2, 5, 21, 7, 3, 8, 3, 9, 3, 6, 7, 9, 3, 134, 3]))
-    print(closest_pair_2d_sorted(P))
+    print(
+        closest_pair_2d_sorted(
+            P,
+            # [(5, 3), (5, 2), (10, 2), (11, 9)])
+        )
+    )
