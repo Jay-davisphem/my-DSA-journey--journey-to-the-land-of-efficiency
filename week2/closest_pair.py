@@ -34,13 +34,15 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
         return min(new_p, key=lambda P: P[-1])[0]
 
 
-def closest_split_pair(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
-    return ((0, 1), (2, 3))
-
-
 def best_of_pairs(P: Tuple[Tuple[Tuple[int]]]):
     fin = [(p, dist_sq(*p)) for p in P]
-    return min(fin, key=lambda p: p[-1])[0]
+    return min(fin, key=lambda p: p[-1])
+
+
+def closest_split_pair(
+    Px: List[Tuple], Py: List[Tuple[int]], delta: int
+) -> Tuple[Tuple[int]]:
+    return ((0, 1), (2, 3))
 
 
 def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
@@ -55,8 +57,11 @@ def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
 
         l1, l2 = closest_pair_2d(Lx, Ly)
         r1, r2 = closest_pair_2d(Rx, Ry)
-        s1, s2 = closest_split_pair(Px, Py)
-        return best_of_pairs(((l1, l2), (r1, r2), (s1, s2)))
+
+        delta = best_of_pairs(((l1, l2), (r1, r2)))[-1]
+
+        s1, s2 = closest_split_pair(Px, Py, delta)
+        return best_of_pairs(((l1, l2), (r1, r2), (s1, s2)))[0]
 
 
 if __name__ == "__main__":
