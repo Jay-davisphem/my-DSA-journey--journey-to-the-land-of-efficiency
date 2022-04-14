@@ -19,7 +19,7 @@ def dist_sq(p1: Tuple[int], p2: Tuple[int]):
     return (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
 
 
-def min_base(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
+def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
     if len(Px) < 2:
         return None
     elif len(Px) == 2:
@@ -34,11 +34,29 @@ def min_base(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
         return min(new_p, key=lambda P: P[-1])[0]
 
 
+def closest_split_pair(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
+    return ((0, 1), (2, 3))
+
+
+def best_of_pairs(P: Tuple[Tuple[Tuple[int]]]):
+    fin = [(p, dist_sq(*p)) for p in P]
+    return min(fin, key=lambda p: p[-1])[0]
+
+
 def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
     if len(Px) <= 3:
-        return min_base(Px, Py)
+        return min_base(Px)
     else:
-        ...
+        n_hf = len(Px) // 2
+        Lx = Px[:n_hf]
+        Ly = Py[:n_hf]
+        Rx = Px[n_hf:]
+        Ry = Py[n_hf:]
+
+        l1, l2 = closest_pair_2d(Lx, Ly)
+        r1, r2 = closest_pair_2d(Rx, Ry)
+        s1, s2 = closest_split_pair(Px, Py)
+        return best_of_pairs(((l1, l2), (r1, r2), (s1, s2)))
 
 
 if __name__ == "__main__":
