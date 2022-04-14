@@ -39,9 +39,17 @@ def best_of_pairs(P: Tuple[Tuple[Tuple[int]]]):
     return min(fin, key=lambda p: p[-1])
 
 
+def filter_pairs(P: List[Tuple[int]]) -> List[Tuple[int]]:
+    return [(0, 1), (2, 3)]
+
+
 def closest_split_pair(
     Px: List[Tuple], Py: List[Tuple[int]], delta: int
 ) -> Tuple[Tuple[int]]:
+    n = len(Px)
+    x = Px[n // 2][0]
+    Sy = filter_pairs(Py)
+
     return ((0, 1), (2, 3))
 
 
