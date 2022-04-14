@@ -34,15 +34,17 @@ def min_base(Px: List[Tuple]) -> Tuple[Tuple[int]]:
         return min(new_p, key=lambda P: P[-1])[0]
 
 
-def best_of_pairs(P: Tuple[Tuple[Tuple[int]]]):
-    fin = [(p, dist_sq(*p)) for p in P if p[0] != None]
+def best_of_pairs(P: Tuple[Tuple[Tuple[int.int]]]):
+    fin: List[Tuple[Tuple[int, int], int]] = [
+        (p, dist_sq(*p)) for p in P if p[0] != None
+    ]
     return min(fin, key=lambda p: p[-1])
 
 
-def filter_pairs(Py: List[Tuple[int]], x: int, delta: int):
+def filter_pairs(Py: List[Tuple[int, int]], x: int, delta: int):
     l_b = x - delta
     u_b = x + delta
-    new_Py: List[Tuple[int]] = []
+    new_Py: List[Tuple[int, int]] = []
     for i, j in Py:
         if l_b <= i <= u_b:
             new_Py.append((i, j))
@@ -50,8 +52,8 @@ def filter_pairs(Py: List[Tuple[int]], x: int, delta: int):
 
 
 def closest_split_pair(
-    Px: List[Tuple], Py: List[Tuple[int]], delta: int
-) -> Tuple[Tuple[int]]:
+    Px: List[Tuple[int, int]], Py: List[Tuple[int, int]], delta: int
+) -> Tuple[Tuple[int, int]]:
     n = len(Px)
     x = Px[n // 2][0]
     Sy = filter_pairs(Py, x, delta)
@@ -66,7 +68,7 @@ def closest_split_pair(
     return best_pair
 
 
-def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
+def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int, int]]:
     if len(Px) <= 3:
         return min_base(Px)
     else:
@@ -85,11 +87,16 @@ def closest_pair_2d(Px: List[Tuple], Py: List[Tuple[int]]) -> Tuple[Tuple[int]]:
         return best_of_pairs(((l1, l2), (r1, r2), (s1, s2)))[0]
 
 
-def closest_pair_2d_sorted(P: List[Tuple]):
+def closest_pair_2d_sorted(P: List[Tuple[int, int]]):
     Px = sorted(P, key=lambda p: p[0])
     Py = sorted(P, key=lambda p: p[1])
     return closest_pair_2d(Px, Py)
 
 
 if __name__ == "__main__":
+    from random import randint as r, seed
+
+    seed(0)
+    P = [(r(1, 100), r(1, 100)) for i in range(100)]
     print(closest_pair_1d([1, 9, 2, 5, 21, 7, 3, 8, 3, 9, 3, 6, 7, 9, 3, 134, 3]))
+    print(closest_pair_2d_sorted(P))
