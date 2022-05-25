@@ -50,11 +50,14 @@ def count_inversions_r(arr: List[int]):
     n = len(arr)
     if n < 2:
         return (arr, 0)
-    else:
-        l_arr, l_count = count_inversions_r(arr[: n // 2])
-        r_arr, r_count = count_inversions_r(arr[n // 2 :])
-        split_arr, split_count = merge_count_split(l_arr, r_arr)
-        return (split_arr, l_count + r_count + split_count)
+    l_arr, l_count = count_inversions_r(arr[: n // 2])
+    r_arr, r_count = count_inversions_r(arr[n // 2 :])
+    split_arr, split_count = merge_count_split(l_arr, r_arr)
+    return (split_arr, l_count + r_count + split_count)
 
+def treat(val):
+    return int(val.rstrip())
 
-print(count_inversions_r([1, 3, 5, 2, 4, 6]))
+if __name__ == '__main__':
+    vals = list(map(treat, open('input.txt', 'r').readlines()))
+    print(count_inversions_r(vals)[1])

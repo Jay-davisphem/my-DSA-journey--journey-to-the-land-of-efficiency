@@ -1,0 +1,69 @@
+#include <iostream>
+#include <iterator>
+#include <utility>
+#include "sorting.h"
+
+void selectSort(int* arr, int len,  bool rev = false){
+  std::cout << "selectSort\n";
+  if(rev){
+    for(int i{0}; i < len - 1; ++i){
+
+      int biggestI{i};
+
+      for(int j{i + 1}; j < len; ++j){
+
+        if(arr[j] > arr[biggestI])
+          biggestI = j;
+      }
+      std::swap(arr[i], arr[biggestI]);
+    }
+  }
+  else{
+    for(int i{0}; i < len - 1; ++i){
+
+      int smallestI{i};
+
+      for(int j{i + 1}; j < len; ++j){
+
+       if(arr[j] < arr[smallestI])
+          smallestI = j;
+      }
+      std::swap(arr[i], arr[smallestI]);
+    }
+  }
+}
+
+void bubbleSort_naive(int* arr, int len, bool rev = false){
+  std::cout << "bubbleSort_naive\n";
+  for(int i{0}; i < len; ++i){
+    for(int j{0}; j < len - 1; ++j){
+      if(arr[j] > arr[j + 1])
+        std::swap(arr[j], arr[j + 1]);
+    }
+  }
+}
+
+void bubbleSort(int* arr, int len, bool rev = false){
+  std::cout << "bubbleSort\n";
+  for(int i{0}; i < len; ++i){
+
+    bool swapped{false};
+    for(int j{0}; j < len - i - 1; ++j){
+      if(arr[j] > arr[j + 1]){
+        std::swap(arr[j], arr[j + 1]);
+        swapped = true;
+      }
+    }
+    if(!swapped){
+      std::cout << "Loop got terminated at 'Loop" << i + 1 << "'\n";
+      break;
+    }
+  }
+}
+
+void printArray(int* arr, int len){
+  for(int i{0}; i < len; ++i){
+    std::cout << arr[i] << ' ';
+  }
+  std::cout << "\n\n";
+}
